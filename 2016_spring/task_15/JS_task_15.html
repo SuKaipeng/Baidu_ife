@@ -100,9 +100,11 @@ function btnHandle() {
 function init() {
 
   // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-
-  var btn = document.getElementById("sort-btn");
-  btn.onclick = btnHandle();
+  var button = document.getElementById("sort-btn");
+  button.onclick = function(){
+    btnHandle();
+    return false; //取消onclick的默认行为。
+  }
 }
 
 init();
