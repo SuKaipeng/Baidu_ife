@@ -42,8 +42,8 @@ function getData() {
   var data = [];
 
   for(var i = 0; i < li.length; i++){
-    var city = li[i].innerHTML.substr(0, 2);
-    var aqi = b[i].innerHTML;
+    var city = li[i].firstChild.nodeValue.substr(0, 2); //var city = li[i].innerHTML.substr(0, 2);
+    var aqi = b[i].firstChild.nodeValue;                //var aqi = b[i].innerHTML; 减少对innerHTML的访问。
     data[i] = []; //重要：定义的一维数组不能直接当做二维数组使用。
     data[i].push(city);
     data[i].push(aqi);
@@ -88,7 +88,7 @@ function render(data) {
     resortContent += "<li>第" + chineseOrder[i] + "名：" + data[i][0] + "空气质量：<b>" + data[i][1] + "</b></li>";
   }
 
-  resortList.innerHTML = resortContent; 
+  resortList.innerHTML = resortContent; //减少对innerHTML的访问。
 }
 
 function btnHandle() {
