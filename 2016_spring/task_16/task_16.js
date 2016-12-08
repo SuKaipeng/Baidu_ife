@@ -13,7 +13,10 @@ var aqiData = {};
  * 然后渲染aqi-list列表，增加新增的数据
  */
 function addAqiData() {
-
+  var city = document.getElementById("aqi-city-input").value;
+  var aqi = document.getElementById("aqi-value-input").value;
+  aqiData[city] = aqi; //访问对象属性有两种方法：点表示法和方括号表示法。
+                       //方括号表示法的优点：可以通过变量来访问属性。
 }
 
 /**
