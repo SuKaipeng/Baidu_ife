@@ -23,6 +23,23 @@ function addAqiData() {
  * 渲染aqi-table表格
  */
 function renderAqiList() {
+  var table = document.getElementById("aqi-table");
+
+  if(table.firstElementChild === null){ //比较用“===”，不用“=”。
+    table.insertRow(0);
+    table.rows[0].insertCell(0);
+    table.rows[0].cells[0].appendChild(document.createTextNode("城市"));
+    table.rows[0].insertCell(1);
+    table.rows[0].cells[1].appendChild(document.createTextNode("空气质量"));
+    table.rows[0].insertCell(2);
+    table.rows[0].cells[2].appendChild(document.createTextNode("操作"));
+  }
+
+  for(var city in aqiData){
+    if(aqiData.hasOwnProperty(city)){
+      
+    }
+  }
 
 }
 
