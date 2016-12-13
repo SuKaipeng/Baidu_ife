@@ -25,24 +25,12 @@ function addAqiData() {
 function renderAqiList() {
   var table = document.getElementById("aqi-table");
 
-  if(table.firstElementChild === null){ //比较用“===”，不用“=”。
-    table.insertRow(0);
-    table.rows[0].insertCell(0);
-    table.rows[0].cells[0].appendChild(document.createTextNode("城市"));
-    table.rows[0].insertCell(1);
-    table.rows[0].cells[1].appendChild(document.createTextNode("空气质量"));
-    table.rows[0].insertCell(2);
-    table.rows[0].cells[2].appendChild(document.createTextNode("操作"));
-  }
-
+  var context = "<tr><td>城市</td><td>空气质量</td><td>操作</td></tr>";
   for(var city in aqiData){
-    if(aqiData.hasOwnProperty(city)){
-      
-    }
+    context += "<tr><td>"+city+"</td><td>"+aqiData[city]+"</td><td><button>删除</button></td></tr>";
   }
-
+  table.innerHTML = context;
 }
-
 /**
  * 点击add-btn时的处理逻辑
  * 获取用户输入，更新数据，并进行页面呈现的更新
