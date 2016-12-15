@@ -46,7 +46,7 @@ function addBtnHandle() {
  */
 function delBtnHandle() {
 
-  var city = this.parentNode.previousElementSibling.previousElementSibling.firstChild.nodeValue;
+  var city = event.target.parentNode.previousElementSibling.previousElementSibling.firstChild.nodeValue;
 
   delete aqiData[city]
 
@@ -58,18 +58,23 @@ function init() {
   // 在这下面给add-btn绑定一个点击事件，点击时触发addBtnHandle函数
 
   // 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数
+  
   var button = document.getElementById("add-btn");
-  button.onclick = addBtnHandle;
+  button.addEventListener("click", addBtnHandle, false);
 
   var table = document.getElementById("aqi-table");
-  var deleteButton = table.getElementsByTagName("button");
-  for(var i = 0, len = deleteButton.length; i < len; i++){
-  	deleteButton[i].onclick = delBtnHandle;
-  }
+  table.addEventListener("click", function(){
+    if(event.target.tagName === "BUTTON"){
+      delBtnHandle();
+    }
+  }, false);
+    
 }
 
 init();
 
 /* 1.在html中，<script>被放在<head>中。<script>比<button>加载得早，
  *   导致click事件绑定不成功。
+ *
+ * 2.页面加载完成后，再向DOM中新添加的元素，应使用事件委托进行事件绑定。
  */
