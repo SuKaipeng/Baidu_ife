@@ -13,10 +13,20 @@ var aqiData = {};
  * 然后渲染aqi-list列表，增加新增的数据
  */
 function addAqiData() {
-  var city = document.getElementById("aqi-city-input").value;
-  var aqi = document.getElementById("aqi-value-input").value;
-  aqiData[city] = aqi; //访问对象属性有两种方法：点表示法和方括号表示法。
-                       //方括号表示法的优点：可以通过变量来访问属性。
+  var city = document.getElementById("aqi-city-input").value.trim(); //trim()去除字符串前后的空格。
+  var aqi = document.getElementById("aqi-value-input").value.trim();
+
+  if(/[\u4e00-\u9fa5]+/i.test(city) || /[a-zA-Z]+/i.test(city)){ //[\u4e00-\u9fa5]中文字符的范围。
+    if(/^[[1-9]+[0-9]*]*$/.test(aqi)){
+      aqiData[city] = aqi; //访问对象属性有两种方法：点表示法和方括号表示法。
+                           //方括号表示法的优点：可以通过变量来访问属性。
+    } else {
+      alert("请在“空气质量指数”输入正整数！");
+    }
+  } else {
+    alert("请在“城市名称”输入中英文字符！");
+  }
+
 }
 
 /**
