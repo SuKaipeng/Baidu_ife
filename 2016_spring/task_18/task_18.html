@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Task 18</title>
+  <style>
+    #form1 {
+	  margin-bottom:1em;
+	}
+    #playground span{
+	  background-color:red;
+	  padding:0.5em;
+	  margin-right:0.2em;
+	}
+  </style>
+</head>
+<body>
+  <form id="form1">
+    <input type="text">
+	<button type="button" name="action" value="insertLeft">左侧入</button>
+	<button type="button" name="action" value="insertRight">右侧入</button>
+	<button type="button" name="action" value="removeLeft">左侧出</button>
+	<button type="button" name="action" value="removeRight">右侧出</button>
+  </form>
+  <div id="playground"></div>
+  <script>
+    var form1 = document.forms[0],
+	    buttons = form1.elements["action"],
+		playground = document.getElementById("playground");
+		
+	function checkInput(){
+	  var input = form1.firstElementChild.value;
+	  if (/^\d+$/u.test(input)){
+	    return input;
+	  } else {
+	    alert("请输入正整数！");
+		return null
+	  }	
+	}
+
+	function insertLeft(){
+	  var input = checkInput(),
+	    span = document.createElement("span"),
+        text = document.createTextNode(input);
+      span.appendChild(text);
+	
+	  if (!playground.firstElementChild){
+	    playground.appendChild(span);
+	  } else { //寻找更简单的方法。
+	    var previousHTML = playground.innerHTML;
+	    playground.innerHTML = "";
+	    playground.appendChild(span);
+	    playground.innerHTML += previousHTML;
+	  }
+	}
+	
+	function insertRight(){
+	  var input = checkInput(), //放在函数外，相当于直接调用 checkInput()。
+	    span = document.createElement("span"),
+        text = document.createTextNode(input);
+      span.appendChild(text);
+      
+	  playground.appendChild(span);
+	}
+	
+    function removeLeft(){
+      if (playground.firstElementChild){
+        playground.firstElementChild.remove();
+      }
+    }
+    
+    function removeRight(){
+      if (playground.lastElementChild){
+        playground.lastElementChild.remove();
+      }
+    }
+	
+	function init(){
+/*
+	  form1.addEventListener("click", function(){
+	    var target = event.target;
+	    switch (target.value){
+	      case "insertLeft":
+	        insertLeft();
+	      case "insertRight":
+	        insertRight();
+	      case "removeLeft":
+	        removeLeft();
+	      case "removeRight":
+	        removeRight();
+	    }
+	  }, false);
+*/  
+	  buttons[0].onclick = insertLeft;
+	  buttons[1].onclick = insertRight;
+	  buttons[2].onclick = removeLeft;
+	  buttons[3].onclick = removeRight;
+	  
+	}
+	
+	init();
+	
+  </script>
+</body>
+</html>
