@@ -43,5 +43,5 @@ var EventUtil = {
 			event.cancelBubble = true;
 		}
 	}
-	
+
 };
