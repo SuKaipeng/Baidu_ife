@@ -1,5 +1,5 @@
 var EventUtil = {
-	//1.没有考虑 IE 中的作用域问题。 2.DOM0 级对每个事件只支持一个事件处理程序。	
+
 	addHandler: function(element, type, handler){
 		if (element.addEventListener){
 			element.addEventListener(type, handler, false);
@@ -18,8 +18,8 @@ var EventUtil = {
 		} else {
 			element["on" + type] = null;
 		}
-	}
-
+	},
+	
 	getEvent: function(event){
 		return event ? event : window.event;
 	},
@@ -43,5 +43,5 @@ var EventUtil = {
 			event.cancelBubble = true;
 		}
 	}
-
+	
 };
