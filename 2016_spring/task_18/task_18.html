@@ -63,38 +63,44 @@
 	
     function removeLeft(){
       if (playground.firstElementChild){
-        playground.firstElementChild.remove();
+        alert(playground.firstElementChild.firstChild.nodeValue);
+        playground.removeChild(playground.firstElementChild);
       }
     }
     
     function removeRight(){
       if (playground.lastElementChild){
-        playground.lastElementChild.remove();
+        alert(playground.lastElementChild.firstChild.nodeValue);
+        playground.removeChild(playground.lastElementChild);
       }
     }
 	
-	function init(){
-/*
-	  form1.addEventListener("click", function(){
+  function init(){
+    form1.addEventListener("click", function(){
 	    var target = event.target;
 	    switch (target.value){
 	      case "insertLeft":
 	        insertLeft();
+	        break;
 	      case "insertRight":
 	        insertRight();
+	        break;
 	      case "removeLeft":
 	        removeLeft();
+	        break;
 	      case "removeRight":
 	        removeRight();
+	        break;
 	    }
 	  }, false);
-*/  
-	  buttons[0].onclick = insertLeft;
-	  buttons[1].onclick = insertRight;
-	  buttons[2].onclick = removeLeft;
-	  buttons[3].onclick = removeRight;
-	  
-	}
+    playground.addEventListener("click", function(){
+      var target = event.target;
+      if (target.nodeName.toLowerCase() === "span"){
+        alert(target.firstChild.nodeValue);
+        playground.removeChild(target);
+      }
+    }, false); 	  
+  }
 	
 	init();
 
