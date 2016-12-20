@@ -34,7 +34,7 @@
 	    return input;
 	  } else {
 	    alert("请输入正整数！");
-		return null
+		return null;
 	  }	
 	}
 
@@ -47,10 +47,8 @@
 	  if (!playground.firstElementChild){
 	    playground.appendChild(span);
 	  } else { //寻找更简单的方法。
-	    var previousHTML = playground.innerHTML;
-	    playground.innerHTML = "";
-	    playground.appendChild(span);
-	    playground.innerHTML += previousHTML;
+	    //var insertedElement = parentElement.insertBefore(newElement, referenceElement);
+      playground.insertBefore(span, playground.firstElementChild);
 	  }
 	}
 	
