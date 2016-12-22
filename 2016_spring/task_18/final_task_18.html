@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task_18</title>
+	<style>
+		#form1 {
+			margin-bottom:1em;
+		}
+		#playground span{
+			background-color:red;
+			padding:0.5em;
+			margin-right:0.2em;
+		}
+	</style>
+<head>
+<body>
+	<form id="form1">
+		<input type="text">
+		<button type="button" name="action" value="insertLeft">左侧入</button>
+		<button type="button" name="action" value="insertRight">右侧入</button>
+		<button type="button" name="action" value="removeLeft">左侧出</button>
+		<button type="button" name="action" value="removeRight">右侧出</button>
+	</form>
+	<div id="playground"></div>
+	
+	<script>
+		var data = {
+			userData: [],
+			
+			verifyPositiveInteger: function(positiveInteger){
+				if (/^\d+$/u.test(positiveInteger)){
+					return positiveInteger;
+				} else {
+					alert("请输入正整数！");
+				}
+			},
+			
+			painter: function(queue){
+				var playground = document.getElementById("playground");
+				if (queue.length > 0){
+					var content = "<span>" + queue.join("</span><span>") + "</span>";
+					playground.innerHTML = content;
+				} else {
+					playground.innerHTML = "";
+				}
+			}
+		};
+		
+		function insertLeft(){
+			var input = document.forms[0].elements[0].value,
+				verify = data.verifyPositiveInteger(input);
+			data.userData.unshift(verify);
+			data.painter(data.userData);
+		}
+		
+		function insertRight(){
+			var input = document.forms[0].elements[0].value,
+				verify = data.verifyPositiveInteger(input);
+			data.userData.push(verify);
+			data.painter(data.userData);
+		}
+		
+		function removeLeft(){
+			data.userData.shift();
+			data.painter(data.userData);
+		}
+		
+		function removeRight(){
+			data.userData.pop();
+			data.painter(data.userData);
+		}
+		
+		function init(){
+			document.forms[0].addEventListener("click", function(){
+				var target = event.target;
+				switch (target.value){
+					case "insertLeft":
+						insertLeft();
+						break;
+					case "insertRight":
+						insertRight();
+						break;
+					case "removeLeft":
+						removeLeft();
+						break;
+					case "removeRight":
+						removeRight();
+						break;
+				}
+			}, false);
+			
+			var playground = document.getElementById("playground");
+			playground.addEventListener("click",function(){
+				var target = event.target;
+				if (target.nodeName.toLowerCase() === "span"){
+					
+				}
+			}, false);
+		}
+		
+		init();
+	</script>
+</body>
+</html>
+
+<!-- 1.阻止undefined和null加入数组。
+     2.获取被点击的数组数据。
+-->
