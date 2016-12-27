@@ -42,10 +42,6 @@ var aqiSourceData = {
   "沈阳": randomBuildData(500)
 };
 
-var formGraTime = document.getElementById("form-gra-time");
-var citySelect = document.getElementById("city-select");
-var aqiChartWrap = document.getElementsByClassName("aqi-chart-wrap")[0];
-
 // 用于渲染图表的数据
 var chartData = {};
 
@@ -66,22 +62,10 @@ function renderChart() {
  * 日、周、月的radio事件点击时的处理函数
  */
 function graTimeChange() {
-  // 确定是否选项发生了变化
-  var time, i;
-  for (i = 0; i < formGraTime.elements["gra-time"].length; i++){
-    if (formGraTime.elements["gra-time"].checked === true){
-      time = formGraTime.elements["gra-time"][0].value;
-      break;
-    }
-  }
+  // 确定是否选项发生了变化 
+
   // 设置对应数据
-  if (time === "day"){
-    
-  } else if (time === "week"){
-    
-  } else if (time === "month"){
-  
-  }
+
   // 调用图表渲染函数
 }
 
@@ -89,18 +73,11 @@ function graTimeChange() {
  * select发生变化时的处理函数
  */
 function citySelectChange() {
-  // 确定是否选项发生了变化
-  var city, i;
-  for (i = 0; i < citySelect.options.length; i++){
-    if (citySelect.options[i].selected === true){
-      city = citySelect.options[i].value;
-      break;
-    }
-  }
+  // 确定是否选项发生了变化 
+
   // 设置对应数据
-  initAqiChartData(city);
+
   // 调用图表渲染函数
-  
 }
 
 /**
@@ -123,10 +100,9 @@ function initCitySelector() {
 /**
  * 初始化图表需要的数据格式
  */
-function initAqiChartData(city) {
+function initAqiChartData() {
   // 将原始的源数据处理成图表需要的数据格式
   // 处理好的数据存到 chartData 中
-  chartData = aqiSourceData[city];
 }
 
 /**
