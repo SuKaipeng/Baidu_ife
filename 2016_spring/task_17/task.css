@@ -1,0 +1,10 @@
+.aqi-chart-wrap {
+	position:relative;
+	height:500px;
+}
+
+.aqi-chart-wrap .histogram {
+	position:absolute;
+	display:inline;
+	bottom:0;
+}

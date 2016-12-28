@@ -1,14 +1,3 @@
-/* 数据格式演示
-var aqiSourceData = {
-  "北京": {
-    "2016-01-01": 10,
-    "2016-01-02": 10,
-    "2016-01-03": 10,
-    "2016-01-04": 10
-  }
-};
-*/
-
 // 以下两个函数用于随机模拟生成测试数据
 function getDateStr(dat) {
   var y = dat.getFullYear();
@@ -47,7 +36,7 @@ var chartData = {};
 
 // 记录当前页面的表单选项
 var pageState = {
-  nowSelectCity: -1,
+  nowSelectCity: "北京",
   nowGraTime: "day"
 }
 
@@ -55,7 +44,34 @@ var pageState = {
  * 渲染图表
  */
 function renderChart() {
-
+	chartData = aqiSourceData[pageState.nowSelectCity]; //需要删除，初始化数据
+	var date = [], sourceDate, width, left, i, histogram="",
+	    wrap = document.getElementsByClassName("aqi-chart-wrap")[0];
+	//时间排序
+	for (sourceDate in chartData){
+		date.push(sourceDate);
+	};
+	date.sort(function(a, b){
+		return Date.parse(a) - Date.parse(b);
+	});
+	//确定width和left
+	switch (pageState.nowGraTime){
+		case "day":
+			width = 9, left = 10;
+			break;
+		case "week":
+			width = 60, left = 70;
+			break;
+		case "month":
+			width = 250, left = 300;
+			break;
+	}
+	for (i = 0; i < date.length; i++){
+		histogram += '<div class="histogram" title="' + date[i] + ': ' + chartData[date[i]] + '" style="width:'
+		             + width +'px; left:' + left * i + 'px; height:' + chartData[date[i]]
+		             + 'px; background-color: black;"></div>'    //background-color随机未写
+	}
+	wrap.innerHTML = histogram;
 }
 
 /**
@@ -63,10 +79,16 @@ function renderChart() {
  */
 function graTimeChange() {
   // 确定是否选项发生了变化 
-
+	var radios = document.getElementById("form-gra-time").elements, i;
+	for (i = 0; i < radios.length; i++){
   // 设置对应数据
-
+  		if (radios[i].checked = true){
+  			pageState.nowGraTime = radios[i].value;
+  			break;
+  		}
+  	}
   // 调用图表渲染函数
+  renderChart();
 }
 
 /**
@@ -74,17 +96,26 @@ function graTimeChange() {
  */
 function citySelectChange() {
   // 确定是否选项发生了变化 
-
+	var options = document.getElementById("city-select").options, i;
+	for (i = 0; i < options.length; i++){
   // 设置对应数据
-
+  		if (options[i].selected = true){
+  			pageState.nowSelectCity = options[i].value;
+  			break;
+  		}
+  	}
   // 调用图表渲染函数
+	renderChart();
 }
 
 /**
  * 初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
  */
 function initGraTimeForm() {
-
+	var timeFieldset = document.getElementById("form-gra-time"); //不确定是否正确
+	timeFieldset.addEventListener("click", function(){
+		graTimeChange();
+	}, false);
 }
 
 /**
@@ -103,6 +134,13 @@ function initCitySelector() {
 function initAqiChartData() {
   // 将原始的源数据处理成图表需要的数据格式
   // 处理好的数据存到 chartData 中
+	switch (pageState.nowGraTime){
+		case "day":
+			chartData.day = aqiSourceData[pageState.nowSelectCity];
+		case "week":
+			
+  //写完这个函数后，调整renderChart()
+	}
 }
 
 /**
