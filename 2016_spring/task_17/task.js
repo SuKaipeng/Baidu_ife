@@ -44,16 +44,9 @@ var pageState = {
  * 渲染图表
  */
 function renderChart() {
-	chartData = aqiSourceData[pageState.nowSelectCity]; //需要删除，初始化数据
-	var date = [], sourceDate, width, left, i, histogram="",
+	initAqiChartData();
+	var width, left, item, i = 0, histogram="",
 	    wrap = document.getElementsByClassName("aqi-chart-wrap")[0];
-	//时间排序
-	for (sourceDate in chartData){
-		date.push(sourceDate);
-	};
-	date.sort(function(a, b){
-		return Date.parse(a) - Date.parse(b);
-	});
 	//确定width和left
 	switch (pageState.nowGraTime){
 		case "day":
@@ -66,10 +59,11 @@ function renderChart() {
 			width = 250, left = 300;
 			break;
 	}
-	for (i = 0; i < date.length; i++){
-		histogram += '<div class="histogram" title="' + date[i] + ': ' + chartData[date[i]] + '" style="width:'
-		             + width +'px; left:' + left * i + 'px; height:' + chartData[date[i]]
-		             + 'px; background-color: black;"></div>'    //background-color随机未写
+	for (item in chartData){
+		i++;
+		histogram += '<div class="histogram" title="' + item + ': ' + chartData[item]
+		             + '" style="width:' + width +'px; left:' + left * i + 'px; height:' 
+		             + chartData[item] + 'px; background-color: black;"></div>' //background-color随机未写
 	}
 	wrap.innerHTML = histogram;
 }
@@ -78,33 +72,41 @@ function renderChart() {
  * 日、周、月的radio事件点击时的处理函数
  */
 function graTimeChange() {
-  // 确定是否选项发生了变化 
+	// 确定是否选项发生了变化 
 	var radios = document.getElementById("form-gra-time").elements, i;
-	for (i = 0; i < radios.length; i++){
-  // 设置对应数据
-  		if (radios[i].checked = true){
-  			pageState.nowGraTime = radios[i].value;
-  			break;
-  		}
-  	}
-  // 调用图表渲染函数
-  renderChart();
+	if(radios[0].checked === false){
+		for (i = 0; i < radios.length; i++){
+			if(radios[i].checked === true){
+				// 设置对应数据
+				pageState.nowGraTime = radios[i].value;
+				break;
+			}
+		}
+	} else {
+		pageState.nowGraTime = radios[0].value;
+	}
+	// 调用图表渲染函数
+	renderChart();
 }
 
 /**
  * select发生变化时的处理函数
  */
-function citySelectChange() {
-  // 确定是否选项发生了变化 
+function citySelectChange() { //未完成
+	// 确定是否选项发生了变化 
 	var options = document.getElementById("city-select").options, i;
-	for (i = 0; i < options.length; i++){
-  // 设置对应数据
-  		if (options[i].selected = true){
-  			pageState.nowSelectCity = options[i].value;
-  			break;
+  	if (options[i].selected === false){
+  		for (i = 0; i < options.length; i++){
+  			if (options[i].selected === true){
+  				// 设置对应数据
+  				pageState.nowSelectCity = options[i].value;
+  				break;
+  			}
   		}
+  	} else {
+  		pageState.nowSelectCity = options[0].value;
   	}
-  // 调用图表渲染函数
+	// 调用图表渲染函数
 	renderChart();
 }
 
@@ -134,12 +136,48 @@ function initCitySelector() {
 function initAqiChartData() {
   // 将原始的源数据处理成图表需要的数据格式
   // 处理好的数据存到 chartData 中
+	var nowSelectCityData = aqiSourceData[pageState.nowSelectCity];
 	switch (pageState.nowGraTime){
 		case "day":
-			chartData.day = aqiSourceData[pageState.nowSelectCity];
+			chartData = {};
+			chartData = aqiSourceData[pageState.nowSelectCity];
+			break;
 		case "week":
-			
-  //写完这个函数后，调整renderChart()
+			chartData = {};
+			var aqiSum = 0, daySum = 0, week = 0, item;
+			for (item in nowSelectCityData){
+				aqiSum += nowSelectCityData[item];
+				daySum ++;
+				if ((new Date(item)).getDay() === 6){
+					week ++;
+					chartData["第" + week + "周"] = Math.round(aqiSum/daySum);
+					aqiSum = 0;
+					daySum = 0;
+				}
+			}
+			if (daySum != 0){
+				week++;
+				chartData["第" + week + "周"] = Math.round(aqiSum/daySum);
+			}
+			break;
+		case "month":
+			chartData = {};
+			var aqiSum = 0, daySum = 0, month = 0, item;
+			for (item in nowSelectCityData){
+				aqiSum += nowSelectCityData[item];
+				daySum ++;
+				if ((new Date(item)).getMonth() !== month){
+					month++;
+					chartData["第" + month + "月"] = Math.round(aqiSum/daySum);
+					aqiSum = 0;
+					daySum = 0;
+				}
+			}
+			if (daySum != 0){
+				month++;
+				chartData["第" + month + "月"] = Math.round(aqiSum/daySum);
+			}
+			break;
 	}
 }
 
