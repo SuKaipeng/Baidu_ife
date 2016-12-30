@@ -95,7 +95,7 @@ function graTimeChange() {
 function citySelectChange() { //未完成
 	// 确定是否选项发生了变化 
 	var options = document.getElementById("city-select").options, i;
-  	if (options[i].selected === false){
+  	if (options[0].selected === false){
   		for (i = 0; i < options.length; i++){
   			if (options[i].selected === true){
   				// 设置对应数据
@@ -124,10 +124,16 @@ function initGraTimeForm() {
  * 初始化城市Select下拉选择框中的选项
  */
 function initCitySelector() {
-  // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
-
-  // 给select设置事件，当选项发生变化时调用函数citySelectChange
-
+	// 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
+	var selectBox = document.getElementById("city-select"), item;
+	for (item in aqiSourceData){
+		var newOption = new Option(item);
+		selectBox.add(newOption, undefined);
+	}
+	// 给select设置事件，当选项发生变化时调用函数citySelectChange
+	selectBox.addEventListener("change", function(){
+		citySelectChange();
+	}, false);
 }
 
 /**
