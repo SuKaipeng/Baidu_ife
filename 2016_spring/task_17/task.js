@@ -60,10 +60,10 @@ function renderChart() {
 			break;
 	}
 	for (item in chartData){
-		i++;
 		histogram += '<div class="histogram" title="' + item + ': ' + chartData[item]
 		             + '" style="width:' + width +'px; left:' + left * i + 'px; height:' 
 		             + chartData[item] + 'px; background-color: black;"></div>' //background-color随机未写
+		i++;
 	}
 	wrap.innerHTML = histogram;
 }
@@ -74,16 +74,11 @@ function renderChart() {
 function graTimeChange() {
 	// 确定是否选项发生了变化 
 	var radios = document.getElementById("form-gra-time").elements, i;
-	if(radios[0].checked === false){
-		for (i = 0; i < radios.length; i++){
-			if(radios[i].checked === true){
-				// 设置对应数据
-				pageState.nowGraTime = radios[i].value;
-				break;
-			}
+	for (i = 0; i < radios.length; i++){
+		if (radios[i].checked === true){
+			pageState.nowGraTime = radios[i].value;
+			break;
 		}
-	} else {
-		pageState.nowGraTime = radios[0].value;
 	}
 	// 调用图表渲染函数
 	renderChart();
@@ -92,20 +87,15 @@ function graTimeChange() {
 /**
  * select发生变化时的处理函数
  */
-function citySelectChange() { //未完成
+function citySelectChange() {
 	// 确定是否选项发生了变化 
 	var options = document.getElementById("city-select").options, i;
-  	if (options[0].selected === false){
-  		for (i = 0; i < options.length; i++){
-  			if (options[i].selected === true){
-  				// 设置对应数据
-  				pageState.nowSelectCity = options[i].value;
-  				break;
-  			}
-  		}
-  	} else {
-  		pageState.nowSelectCity = options[0].value;
-  	}
+	for (i = 0; i < options.length; i++){
+		if (options[i].selected === true){
+			pageState.nowSelectCity = options[i].value;
+  			break;
+		}
+	}
 	// 调用图表渲染函数
 	renderChart();
 }
@@ -114,8 +104,8 @@ function citySelectChange() { //未完成
  * 初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
  */
 function initGraTimeForm() {
-	var timeFieldset = document.getElementById("form-gra-time"); //不确定是否正确
-	timeFieldset.addEventListener("click", function(){
+	var timeFieldset = document.getElementById("form-gra-time");
+	timeFieldset.addEventListener("change", function(){ //深入学习change事件
 		graTimeChange();
 	}, false);
 }
