@@ -61,7 +61,7 @@
 	function init(){
 		document.forms[0].elements[1].addEventListener("click", function(){
 			var inputData = document.forms[0].elements[0].value; //当在全局作用域设置该变量是，inputData获取的始终是网页刚加载完的时候的值，即“”。
-			if (/\d+/u.test(inputData)){
+			if (/\d+/.test(inputData)){
 				leftIn(inputData);
 			} else {
 				alert("请输入正整数！");
@@ -70,7 +70,7 @@
 		
 		document.forms[0].elements[2].addEventListener("click", function(){
 			var inputData = document.forms[0].elements[0].value;
-			if (/\d+/u.test(inputData)){
+			if (/\d+/.test(inputData)){
 				rightIn(inputData);
 			} else {
 				alert("请输入正整数！");
