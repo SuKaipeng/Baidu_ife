@@ -1,0 +1,15 @@
+#form1 {
+  margin-bottom:1em;
+}
+
+#playground  {
+  position:relative;
+  height:200px;
+}
+
+#playground span {
+  position:absolute;
+  bottom:0;
+  width:9px;
+  background-color:black;
+}
