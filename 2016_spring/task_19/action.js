@@ -36,24 +36,31 @@ function rightOut(){
 }
 
 function randomArray(){
-	var i, randomNumber;
-	for (i = 0; i < 10; i++){
+	var i, randomNumber, array = [];
+	for (i = 0; i < 60; i++){
 		randomNumber = Math.round(Math.random() * 90 + 10);
-		obj.data.push(randomNumber);
+		array.push(randomNumber);
 	}
+	obj.data = array
 	obj.painter();
 }
 
-function bubbleSort(array){
-	var i, temp;
-	for (i = 0; i < array.length; i++){
-		if (array[i] > array[i + 1]){
-			temp = array[i];
-			array[i] = array[i + 1];
-			array[i + 1] = temp;
-			obj.painter();
+function bubbleSort(){
+	var i, temp, len = obj.data.length;
+	setTimeout(function(){
+		for (i = 0; i < len - 1; i++){
+			if (obj.data[i] > obj.data[i + 1]){
+				temp = obj.data[i];
+				obj.data[i] = obj.data[i + 1];
+				obj.data[i + 1] = temp;
+				obj.painter();
+			}
 		}
-	}
+		len--;
+		if (len > 0){
+			setTimeout(arguments.callee, 150);
+		}
+	}, 150);
 }
 
 function init(){
@@ -96,7 +103,7 @@ function init(){
 	},false);
 	
 	document.forms[0].elements[6].addEventListener("click", function(){
-		bubbleSort(obj.data);
+		bubbleSort();
 	}, false);
 	
 	playground.addEventListener("click", function(){
