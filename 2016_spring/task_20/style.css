@@ -1,8 +1,12 @@
-#form1 {
-  margin-bottom:1em;
-}
 #playground span{
-  background-color:red;
-  padding:0.5em;
-  margin-right:0.5em;
+  color:white;
+  background-color:black;
+  padding:5px;
+  margin-right:5px;
+  line-height:35px;
+}
+#playground .highlight {
+  padding:0;
+  margin:0;
+  color:red;
 }
