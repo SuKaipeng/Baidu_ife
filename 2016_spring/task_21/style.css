@@ -1,3 +1,7 @@
 #tags div{
-	
+  display:inline;
+  font:bold 50px/50px serif;
+  color:white;
+  background-color:black;
+  margin:5px;
 }
