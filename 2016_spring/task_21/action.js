@@ -2,6 +2,10 @@ var tag = {
 	data: []
 };
 
+var hobby = {
+	data: []
+}
+
 function insert(){
 	var inputData = document.getElementById("tagInput").value.trim();
 	if (tag.data.indexOf(inputData) > -1 || inputData === ""){return}
@@ -10,10 +14,32 @@ function insert(){
 	if (tag.data.length > 10){ tag.data.shift() }
 }
 
+function insert1(){
+	var inputData = document.getElementById("hobbyInput").value.trim(),
+	    splitArray = inputData.split(/[\r,，、\s\t\\\/]+/g),
+	    concatArray = hobby.data.concat(splitArray),
+		filterArray = concatArray.filter(function(item, index, array){
+			return array.indexOf(item) === index;
+		});
+	if (filterArray.length > 10){
+		while (filterArray.length > 10){filterArray.shift();}
+	}
+	hobby.data = filterArray;
+	document.getElementById("hobbyInput").value = "";
+}
+
 function render(){
 	var i, txt = "", wrapper = document.getElementById("tags");
 	for (i = 0; i < tag.data.length; i++){
 		txt += "<div>" + tag.data[i] + "</div>"
+	}
+	wrapper.innerHTML = txt;
+}
+
+function render1(){
+	var i, txt = "", wrapper = document.getElementById("hobbies");
+	for (i = 0; i < hobby.data.length; i++){
+		txt += "<div>" + hobby.data[i] + "</div>"
 	}
 	wrapper.innerHTML = txt;
 }
@@ -35,35 +61,6 @@ function init(){
 		render1();
 		console.log(hobby.data);
 	}, false);
-}
-
-var hobby = {
-	data: []
-}
-
-function insert1(){
-	var inputData = document.getElementById("hobbyInput").value.trim(),
-	    splitArray = inputData.split(/[\r,，、\s\t\\\/]+/g),
-	    trimArray = splitArray.map(function(item, index, array){
-			return item.trim();
-		}),
-	    concatArray = hobby.data.concat(trimArray),
-		filterArray = concatArray.filter(function(item, index, array){
-			return array.indexOf(item) === index;
-		});
-	if (filterArray.length > 10){
-		while (filterArray.length > 10){filterArray.shift();}
-	}
-	hobby.data = filterArray;
-	document.getElementById("hobbyInput").value = "";
-}
-
-function render1(){
-	var i, txt = "", wrapper = document.getElementById("hobbies");
-	for (i = 0; i < hobby.data.length; i++){
-		txt += "<div>" + hobby.data[i] + "</div>"
-	}
-	wrapper.innerHTML = txt;
 }
 
 init();
