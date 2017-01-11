@@ -3,8 +3,7 @@ function rogueOne(inputId, wrapperId){
 	obj.data = [];
 	//定义一个data，rogueOne()函数内都能访问。
 	var data = obj.data;
-	obj.insert = function(inputId){
-		console.log(inputId);
+	obj.insert = function(){
 		var inputData = document.getElementById(inputId).value.trim();
 		switch (inputId){
 			case "tagInput":
@@ -26,7 +25,7 @@ function rogueOne(inputId, wrapperId){
 		};
 		document.getElementById(inputId).value = "";
 	};
-	obj.render = function(wrapperId){
+	obj.render = function(){
 		var i, txt = "", wrapper = document.getElementById(wrapperId);
 		for (i = 0; i < data.length; i++){
 			txt += "<div>" + data[i] + "</div>";
@@ -40,18 +39,18 @@ function rogueOne(inputId, wrapperId){
 		inputArea.addEventListener("keydown", function(){
 			if (event.keyCode === 32 || event.keyCode === 188 || event.keyCode === 13){
 				event.preventDefault(); //按下回车键默认自动刷下页面
-				tag.insert(inputId);
-				tag.render(wrapperId);
-				console.log(tag.data);
+				tag.insert();
+				tag.render();
+				console.log(data);
 			}
 		}, false);
 		break;
 		case "hobbyInput":
 		var btn = document.getElementById("confirm");
 		btn.addEventListener("click", function(){
-			hobby.insert(inputId);
-			hobby.render(wrapperId);
-			console.log(hobby.data);
+			hobby.insert();
+			hobby.render();
+			console.log(data);
 		}, false);
 		break;
 		}
@@ -61,5 +60,6 @@ function rogueOne(inputId, wrapperId){
 
 var tag = rogueOne("tagInput", "tags"),
     hobby = rogueOne("hobbyInput", "hobbies");
-	
+    
 tag.init();
+hobby.init();
