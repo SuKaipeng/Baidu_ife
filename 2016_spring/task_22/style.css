@@ -1,0 +1,23 @@
+.box1 {
+  display:-webkit-flex;
+  border:1px solid black;
+  margin:10px;
+  width:710px;
+}
+.box2 {
+  display:-webkit-flex;
+  border:1px solid black;
+  margin:10px;
+}
+.box3 {
+  display:-webkit-flex;
+  border:1px solid black;
+  margin:10px;
+}
+.box4 {
+  display:-webkit-flex;
+  border:1px solid black;
+  width:50px;
+  height:30px;
+  margin:10px;
+}
