@@ -1,0 +1,34 @@
+.super {
+  display:flex;
+  border:1px solid black;
+  padding:5px;
+  min-width:1234px;
+}
+.dog {
+  display:flex;
+  border:1px solid black;
+  flex:1 1;
+  padding:5px;
+  margin:5px;
+}
+.apple {
+  display:flex;
+  border:1px solid black;
+  flex:1 1;
+  padding:5px;
+  margin:5px;
+}
+.pear {
+  display:flex;
+  border:1px solid black;
+  flex:1 1;
+  padding:5px;
+  margin:5px;
+}
+.cat {
+  display:flex;
+  border:1px solid black;
+  flex:1 1;
+  padding:5px;
+  margin:5px;
+}
