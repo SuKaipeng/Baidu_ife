@@ -1,9 +1,9 @@
-var box1 = Array.prototype.slice.call(document.getElementsByClassName("box1"), 0); //½« nodelist ×ª»¯³É array
+var box1 = Array.prototype.slice.call(document.getElementsByClassName("box1"), 0); //Î©Â´ nodelist â—Šâ„¢ÂªÃ˜â‰¥â€¦ array
 var box2 = Array.prototype.slice.call(document.getElementsByClassName("box2"), 0);
 var box3 = Array.prototype.slice.call(document.getElementsByClassName("box3"), 0);
 var box4 = Array.prototype.slice.call(document.getElementsByClassName("box4"), 0);
-var allBoxes = box1.concat(box2).concat(box3).concat(box4); //°´Ë³Ğò´æ´¢½á¹¹´æ´¢µÄdivÊı×é
-var array = []; //´æ·ÅÏÈĞò±éÀúºóµÄdiv
+var allBoxes = box1.concat(box2).concat(box3).concat(box4); //âˆÂ¥Ã€â‰¥â€“ÃšÂ¥ÃŠÂ¥Â¢Î©Â·Ï€Ï€Â¥ÃŠÂ¥Â¢ÂµÆ’divÂ Ëâ—ŠÃˆ
+var array = []; //Â¥ÃŠâˆ‘â‰ˆÅ“Â»â€“ÃšÂ±ÃˆÂ¿Ë™âˆ«Ã›ÂµÆ’div
 
 function preOrderTraverse(x){
 	array.push(allBoxes[x]);
