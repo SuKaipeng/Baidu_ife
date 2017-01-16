@@ -1,19 +1,20 @@
+//创建构造函数
 function BinaryTree(){
 	this.tree = [];
 }
-
+//前序遍历
 BinaryTree.prototype.preOrder = function(node){
 	this.tree.push(node);
 	if (node.firstElementChild) this.preOrder(node.firstElementChild);
 	if (node.lastElementChild) this.preOrder(node.lastElementChild);
 }
-
+//中序遍历
 BinaryTree.prototype.inOrder = function(node){
 	if (node.firstElementChild) this.inOrder(node.firstElementChild);
 	this.tree.push(node);
 	if (node.lastElementChild) this.inOrder(node.lastElementChild);
 }
-
+//后序遍历
 BinaryTree.prototype.postOrder = function(node){
 	if (node.firstElementChild) this.postOrder(node.firstElementChild);
 	if (node.lastElementChild) this.postOrder(node.lastElementChild);
@@ -21,13 +22,12 @@ BinaryTree.prototype.postOrder = function(node){
 }
 
 BinaryTree.prototype.animation = function(){
-	var array = this.tree;
+	var array = this.tree; //获取对象中的数组
 	var i = 0;
 	array[i].style.backgroundColor = "red";
 	setTimeout(function(){
 		if (i === (array.length - 1)){
 			array[i].style.backgroundColor = "white";
-			this.visiting = false;
 		} else {
 			i++;
 			array[i-1].style.backgroundColor = "white";
