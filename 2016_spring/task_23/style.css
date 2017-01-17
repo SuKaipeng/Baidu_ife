@@ -1,34 +1,39 @@
-.super {
+.one {
   display:flex;
   border:1px solid black;
   padding:5px;
   min-width:1400px;
+  background-color: white;
 }
-.dog {
+.two {
   display:flex;
   border:1px solid black;
   flex:1 1;
   padding:5px;
   margin:5px;
+  background-color: white;
 }
-.apple {
+.three {
   display:flex;
   border:1px solid black;
   flex:1 1;
   padding:5px;
   margin:5px;
+  background-color: white;
 }
-.pear {
+.four {
   display:flex;
   border:1px solid black;
   flex:1 1;
   padding:5px;
   margin:5px;
+  background-color: white;
 }
-.cat {
+.five {
   display:flex;
   border:1px solid black;
   flex:1 1;
   padding:5px;
   margin:5px;
+  background-color: white;
 }
