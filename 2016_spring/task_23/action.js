@@ -11,12 +11,12 @@ MultiTree.prototype.rDFS = function(node){
 	}
 	console.log(this.order);
 }
-//广度优先遍历（递归）（未明白19行的做法）
+//广度优先遍历（递归）（19行的做法）
 MultiTree.prototype.rBFS = function(node){
 	if (node){
 		this.order.push(node);
 		this.rBFS(node.nextElementSibling);
-		node = this.order[i++]; //加了这一行以后递归函数的执行顺序才不会出错。为什么？
+		node = this.order[i++]; //18行的函数递归到底，再执行19行，使node返回为this.order中第一个元素
 		this.rBFS(node.firstElementChild);
 	}
 	console.log(this.order);
@@ -36,6 +36,13 @@ MultiTree.prototype.animation = function(){
 			setTimeout(arguments.callee, 300);
 		}
 	}, 300);
+}
+
+MultiTree.prototype.searching = function(){
+	var input = document.forms[0].elements[2].value;
+	var re = new RegExp(input, "i");
+	for (var i = 0; i < this.order)
+	if (re.test())
 }
 
 var tree = new MultiTree();
