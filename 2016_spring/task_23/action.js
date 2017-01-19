@@ -1,5 +1,6 @@
 function MultiTree(){
 	this.order = []; //存储遍历的顺序
+	this.rBFSindex = 0;
 }
 //深度优先遍历（递归）
 MultiTree.prototype.rDFS = function(node){
@@ -16,14 +17,13 @@ MultiTree.prototype.rBFS = function(node){
 	if (node){
 		this.order.push(node);
 		this.rBFS(node.nextElementSibling);
-		node = this.order[i++]; //18行的函数递归到底，再执行19行，使node返回为this.order中第一个元素
+		node = this.order[this.rBFSindex++]; //18行的函数递归到底，再执行19行，使node返回为this.order中第一个元素
 		this.rBFS(node.firstElementChild);
 	}
 	console.log(this.order);
 }
 
-MultiTree.prototype.animation = function(){
-	var order = this.order;
+MultiTree.prototype.animation = function(order){
 	var i = 0;
 	order[i].style.backgroundColor = "red";
 	setTimeout(function(){
@@ -41,12 +41,26 @@ MultiTree.prototype.animation = function(){
 MultiTree.prototype.searching = function(){
 	var input = document.forms[0].elements[2].value;
 	var re = new RegExp(input, "i");
-	for (var i = 0; i < this.order)
-	if (re.test())
+	var order = [];
+	for (var i = 0; i < this.order; i++){
+		if (re.test(this.order[i])) return order = this.order.slice(0, i+1);
+	}
 }
 
-var tree = new MultiTree();
-var one = document.getElementsByClassName("one")[0];
-var i = 0;
-tree.rBFS(one);
-tree.animation();
+function init(){
+	var boxes = new MultiTree();
+	var root = document.getElementsByClassName("one")[0];
+	var form = document.forms[0];
+	form.elements[0].addEventListener("click", function(){
+		boxes.order = [];
+		boxes.rDFS(root);
+		boxes.animation(boxes.order);
+	}, false);
+	form.elements[1].addEventListener("click", function(){
+		boxes.order = [];
+		boxes.rBFS(root);
+		boxes.animation(boxes.order);
+	}, false);
+}
+
+init();
