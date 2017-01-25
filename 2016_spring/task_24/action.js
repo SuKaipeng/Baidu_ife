@@ -1,6 +1,7 @@
 function MultiTree(){
 	this.order = []; //存储遍历的顺序
 	this.rBFSindex = 0;
+	this.selected = null;
 }
 //深度优先遍历（递归）
 MultiTree.prototype.rDFS = function(node){
@@ -23,37 +24,46 @@ MultiTree.prototype.rBFS = function(node){
 
 MultiTree.prototype.animation = function(order, search){
 	var i = 0;
-	//清除所有元素的样式
-	for (var j = 0; j < order.length; j++){
-		order[j].style.backgroundColor = "white";
-	}
-	order[i].style.backgroundColor = "red";
-	setTimeout(function(){
-		if (i === (order.length - 1)){
-			if (!search) order[i].style.backgroundColor = "white";
-		} else {
-			i++;
-			order[i-1].style.backgroundColor = "white";
-			order[i].style.backgroundColor = "red";
-			setTimeout(arguments.callee, 300);
-		}
-	}, 300);
-}
-//记录搜索路径
-MultiTree.prototype.searching = function(){
-	var input = document.forms[0].elements[2].value;
+	var input = document.forms[0].elements[2].value.trim();
 	var re = new RegExp("^" + input + "$", "i");
-	var order = [];
-	for (var i = 0; i < this.order.length; i++){
-		if (re.test(this.order[i].firstChild.nodeValue.trim())) return order = this.order.slice(0, i+1);
-	}
-	console.log(order);
-	return order;
+	timer = setInterval(function(){
+		if (i < order.length){
+			order[i].classList.add("selected");
+			if (i > 0) order[i-1].classList.remove("selected");
+			if (search && re.test(order[i].firstChild.nodeValue.trim())) clearInterval(timer);
+			i++;
+		} else {
+			order[i-1].classList.remove("selected");
+			clearInterval(timer);
+		}
+	}, 200);
+	
 }
 //清除数据
 MultiTree.prototype.reset = function(){
+	var root = document.getElementsByClassName("one")[0];
+	this.rBFS(root);
+	for (var j = 0; j < this.order.length; j++){
+		if (this.order[j].classList.contains("selected")) this.order[j].classList.remove("selected");
+	}
 	this.order = [];
 	this.rBFSindex = 0;
+	this.selected = null;
+}
+
+MultiTree.prototype.remove = function(){
+	var parent = this.selected.parentNode;
+	parent.removeChild(this.selected);
+	this.selected = null;
+}
+
+MultiTree.prototype.add = function(){
+	var input = document.forms[0].elements[5].value.trim();
+	var fragment = document.createDocumentFragment();
+	var div = document.createElement("div");
+	div.appendChild(document.createTextNode(input));
+	fragment.appendChild(div);
+	this.selected.appendChild(fragment);
 }
 
 function init(){
@@ -73,14 +83,26 @@ function init(){
 	form.elements[3].addEventListener("click", function(){
 		boxes.reset();
 		boxes.rDFS(root);
-		var searchOrder = boxes.searching();
-		boxes.animation(searchOrder, true);
+		boxes.animation(boxes.order, true);
 	}, false);
 	form.elements[4].addEventListener("click", function(){
 		boxes.reset();
 		boxes.rBFS(root);
-		var searchOrder = boxes.searching();
-		boxes.animation(searchOrder, true);
+		boxes.animation(boxes.order, true);
+	}, false);
+	
+	root.addEventListener("click", function(){
+		boxes.reset();
+		var target = event.target;
+		target.classList.add("selected");
+		boxes.selected = target;
+		console.log(boxes.selected);
+	}, false);
+	form.elements[6].addEventListener("click", function(){
+		boxes.remove();
+	}, false);
+	form.elements[7].addEventListener("click", function(){
+		boxes.add();
 	}, false);
 }
 
