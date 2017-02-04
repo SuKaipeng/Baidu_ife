@@ -1,0 +1,21 @@
+.root {
+	width:250px;
+}
+div {
+	display:flex;
+	flex-direction:column;
+	border:1px solid black;
+	background-color:white;
+	padding:5px;
+	margin:5px;
+	cursor:pointer;
+}
+.fold {
+	display:none;
+}
+.selected {
+	background-color:red;
+}
+form input{
+	margin:5px;
+}

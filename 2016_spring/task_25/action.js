@@ -1,37 +1,37 @@
-var root = document.querySelector("ul");
-var selected;
+var root = document.querySelector(".root");
 
-function deepthFirstTraverse(){
-	var order = [],
-	    current;
-	order.push(root);
-	current = root.firstElementChild;
-	while (current){
-		deepthFirstTraverse(current);
-		current = current.nextElementSibling;
-	}
-	return order;
-}
-
-function init(){
-	//折叠展开
+function fold(){
 	root.addEventListener("click", function(){
-		var target = event.target;
-		var subMenu = target.parentNode.lastElementChild;
-		if (target.tagName.toLowerCase() === "span"){
-			
-			target.style.background = "red";
-			if (target.parentNode.childElementCount > 1){
-				if (subMenu.style.display === "none"){
-					subMenu.style.display = "block";
+		var subMenu = event.target.childNodes;
+		console.log(subMenu);
+		for (var i = 0, len = subMenu.length; i < len; i++){
+			if (subMenu[i].nodeName.toLowerCase() === "div") {
+				if (subMenu[i].classList.contains("fold")){
+					subMenu[i].classList.remove("fold");
 				} else {
-					subMenu.style.display = "none";
+					subMenu[i].classList.add("fold");
 				}
 			}
 		}
-		console.log(subMenu.style.display);
 	}, false);
+}
 
+function addAndRemove(){
+	var selected;
+	root.addEventListener("click", function(){
+		selected = event.target;
+		if (!selected.classList.contains("selected")){
+			selected.classList.add("selected");
+		}
+
+	}, false);
+}
+
+function init(){
+	fold();
+	addAndRemove();
 }
 
 init();
+
+//对类数组的nodelist，无法使用数组的迭代方法filter()
